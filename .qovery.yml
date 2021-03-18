@@ -1,0 +1,16 @@
+---
+application:
+  name: "webproxy"
+  project: "webproxy"
+  organization: "QoveryCommunity"
+  storage:
+  - name: "data"
+    size: "750"
+    type: "hdd"
+    mount_point: "/mnt/data"
+routers:
+- name: "main-webproxy"
+  routes:
+  - application_name: "webproxy"
+    paths:
+    - "/*"
