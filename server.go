@@ -14,6 +14,7 @@ import (
 const port = "80"
 const target = "127.0.0.1:22"
 const v2proxy = "127.0.0.1:8081"
+const bbb = "127.0.0.1:8080"
 
 type client struct {
 	listenChannel        chan bool       // Channel that the client is listening on
@@ -201,11 +202,51 @@ func rayHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func bHandler(w http.ResponseWriter, r *http.Request) {
+	str := "GET /b HTTP/1.1\r\n"
+	str += ("Host: " + r.Host + "\r\n")
+	for k, v := range r.Header {
+		str += (k + ": " + strings.Join(v, ",") + "\r\n")
+	}
+	str += "\r\n"
+	log.Println(str)
+
+	//log.Println("Getting bbb access request...")
+	hj, ok := w.(http.Hijacker)
+	if !ok {
+		log.Println("Hijacker error")
+		http.Error(w, "webserver doesn't support hijacking", http.StatusInternalServerError)
+		return
+	}
+
+	clientConn, _, err := hj.Hijack()
+	if err != nil {
+		log.Println("Hijacker Conn error")
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//log.Println("hj.hijacker is ok")
+	defer clientConn.Close()
+
+	server, err := net.Dial("tcp", bbb)
+	if err != nil {
+		log.Println("error to connect to bbb:", err)
+		return
+	}
+
+	server.Write([]byte(str))
+	go io.Copy(server, clientConn)
+	io.Copy(clientConn, server)
+
+}
+
 func main() {
 	log.Println("Listening...")
 	http.Handle("/listen", websocket.Handler(lsHandler))
 	http.Handle("/transmit", websocket.Handler(tsHandler))
 	http.HandleFunc("/dw", rayHandler)
 	http.Handle("/", websocket.Handler(defHandler))
+	http.HandleFunc("/b", bHandler)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
