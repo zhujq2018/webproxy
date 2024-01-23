@@ -1,17 +1,12 @@
 FROM golang:alpine3.19 as builder
 WORKDIR $GOPATH/src/wserver
 COPY . .
-
 RUN apk update && apk add --no-cache git build-base && set -x && \
     go mod init && go mod tidy
 RUN CGO_ENABLED=1 GOOS=linux go build -o /server server.go
 
-
-
 FROM ubuntu:latest
-
 ENV DEBIAN_FRONTEND=noninteractive
-
 RUN apt-get update \
   && apt-get install -y curl openssh-server zip unzip net-tools inetutils-ping iproute2 tcpdump git vim mysql-client redis-tools tzdata\
   && mkdir -p /var/run/sshd \
