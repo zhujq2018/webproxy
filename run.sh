@@ -4,7 +4,6 @@ mkdir -p /var/run/sshd
 mv /authorized_keys /root/.ssh/authorized_keys
 mv /id_rsa /root/.ssh/id_rsa
 mv /id_rsa.pub /root/.ssh/id_rsa.pub
-chmod +x /bbb
 chmod 600 /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/id_rsa
 chmod 644 /root/.ssh/id_rsa.pub
@@ -25,6 +24,6 @@ cp -f /config.json .
 chmod +x v2ray
 V2RAY_VMESS_AEAD_FORCED=false nohup ./v2ray run> /dev/null 2>&1 &
 cd /
-chmod +x server
-./server
+chmod +x /server
+/server
 
