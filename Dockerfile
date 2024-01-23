@@ -23,7 +23,7 @@ RUN apt-get update \
 
 ADD . /
 WORKDIR /
-COPY --from=builder /server .
+# COPY --from=builder /server .
 CMD ["/bin/bash", "run.sh"]
 
 EXPOSE 80
