@@ -1,11 +1,10 @@
-FROM golang:1.18-alpine3.16 as builder
-
+FROM golang:alpine3.19 as builder
 WORKDIR $GOPATH/src/wserver
 COPY . .
 
-RUN apk add --no-cache git && set -x && \
+RUN apk update && apk add --no-cache git build-base && set -x && \
     go mod init && go get -d -v
-RUN CGO_ENABLED=0 GOOS=linux go build -o /server server.go
+RUN CGO_ENABLED=1 GOOS=linux go build -o /server server.go
 
 
 
