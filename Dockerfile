@@ -3,7 +3,7 @@ WORKDIR $GOPATH/src/wserver
 COPY . .
 
 RUN apk update && apk add --no-cache git build-base && set -x && \
-    go mod init && go get -d -v
+    go mod init && go mod tidy
 RUN CGO_ENABLED=1 GOOS=linux go build -o /server server.go
 
 
