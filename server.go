@@ -1468,7 +1468,7 @@ div[class^="ele-leg-"]:before {
 			}
 
 			if len(singlepgwtunnelinfo) > 0 { //单个pgw的隧道名称和隧道信息映射表
-				var vrftun map[string]Vrftunnelinfo{}
+				vrftun := map[string]Vrftunnelinfo{}
 				for k, v := range singlepgwtunnelinfo {
 					if strings.Contains(k, "tunnel") {
 						tempvrftunnelinfo := vrftun[v.Vrf]
