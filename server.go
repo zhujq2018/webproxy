@@ -2737,7 +2737,7 @@ func getapninfo(buf *bufio.Scanner) (pgwn string, apninfo map[string]Apnmaininfo
 				if allipv4pools[singleapn.Ippool].Poolmode == "assigned" {
 					nassign += 1
 				}
-				if strings.Fields(singleapn.Authmode)[0] == "radius" {
+				if len(singleapn.Authmode) > 0 && strings.Fields(singleapn.Authmode)[0] == "radius" {
 					nradius += 1
 				}
 
