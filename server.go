@@ -1854,6 +1854,9 @@ function Copyto() {
 						}
 					}
 
+					if value.Authmode == ""{
+						value.Authmode = "none"
+					}
 					w.Write([]byte("<tr><td>" + k + "</td><td>" + value.Vrf + "</td><td>" + value.Ippool + "</td><td>" + value.Ipallocatemode + "</td><td>" + strings.Fields(value.Authmode)[0] + "</td><td>" + value.Tunneltype + "</td><td>" + tunnelnames + "</td><td>" + vrfs + "</td><td>" + sips + "</td><td>" + dips + "</td><td>(" + value.Typeofapn + ")" + value.Dpitemplte + "</td><td>" + value.Pdns + "</td><td>" + value.Aaaprofile + "</td></tr>"))
 				}
 			}
@@ -1891,6 +1894,9 @@ function Copyto() {
 								vrfs += (tempstrlist[k+3] + "<br>")
 							}
 						}
+					}
+					if value.Authmode == ""{
+						value.Authmode = "none"
 					}
 					w.Write([]byte("<tr><td>" + value.Pgw + "</td><td>" + k + "</td><td>" + value.Vrf + "</td><td>" + value.Ippool + "</td><td>" + value.Ipallocatemode + "</td><td>" + strings.Fields(value.Authmode)[0] + "</td><td>" + value.Tunneltype + "</td><td>" + tunnelnames + "</td><td>" + vrfs + "</td><td>" + sips + "</td><td>" + dips + "</td><td>(" + value.Typeofapn + ")" + value.Dpitemplte + "</td><td>" + value.Pdns + "</td><td>" + value.Aaaprofile + "</td></tr>"))
 				}
@@ -2737,8 +2743,10 @@ func getapninfo(buf *bufio.Scanner) (pgwn string, apninfo map[string]Apnmaininfo
 				if allipv4pools[singleapn.Ippool].Poolmode == "assigned" {
 					nassign += 1
 				}
-				if len(singleapn.Authmode) > 0 && strings.Fields(singleapn.Authmode)[0] == "radius" {
-					nradius += 1
+				if len(singleapn.Authmode) > 0 {
+				     if strings.Fields(singleapn.Authmode)[0] == "radius" {
+					 	nradius += 1
+					}
 				}
 
 				if singleapn.Vrf == "" {
