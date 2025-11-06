@@ -1,4 +1,4 @@
-FROM golang:alpine3.19 as builder
+FROM golang:alpine3.22 as builder
 WORKDIR $GOPATH/src/wserver
 COPY . .
 RUN apk update && apk add --no-cache git build-base && set -x && \
