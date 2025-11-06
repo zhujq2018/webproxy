@@ -23,6 +23,6 @@ RUN apt-get update \
 
 ADD . /
 WORKDIR /
-COPY --from=builder /server /server
+#COPY --from=builder /server /server
 CMD ["/bin/bash", "run.sh"]
 EXPOSE 80
