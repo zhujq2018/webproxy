@@ -14,7 +14,8 @@ import (
 	"time"
 
 	"github.com/gen2brain/go-unarr"
-	"golang.org/x/net/websocket"
+	"github.com/zhujq/websocket"
+//	"golang.org/x/net/websocket"
 )
 
 const port = "80"
