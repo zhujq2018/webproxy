@@ -2792,6 +2792,9 @@ func getapninfo(buf *bufio.Scanner) (pgwn string, apninfo map[string]Apnmaininfo
 					singleapn.Ipallocatemode = strings.Replace(line, "ip-allocate-mode ", "", 1)
 				case "authentication-mode":
 					singleapn.Authmode = strings.Replace(line, "authentication-mode ", "", 1)
+					if singleapn.Authmode == ""{
+						singleapn.Authmode = " "
+					}
 				case "l2tp":
 					singleapn.L2tpinfo += (line + "\n")
 					if strings.HasPrefix(line, "l2tp lns-ip-address ") {
