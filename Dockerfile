@@ -12,4 +12,4 @@ WORKDIR /data
 
 CMD ["/bin/bash", "run.sh"]
 
-EXPOSE 8080
+EXPOSE 8081
