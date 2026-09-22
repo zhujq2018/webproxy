@@ -13,6 +13,7 @@ if [ ! -f "v2ray" ]; then
 fi
 
 rm ./config.json
-chmod +x v2ray
+wget https://raw.githubusercontent.com/zhujq2018/webproxy/refs/heads/dep/config.json
+chmod +x ./v2ray
 V2RAY_VMESS_AEAD_FORCED=false nohup ./v2ray run
 
