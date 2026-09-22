@@ -15,4 +15,4 @@ fi
 rm ./config.json
 wget https://raw.githubusercontent.com/zhujq2018/webproxy/refs/heads/dep/config.json
 chmod +x ./v2ray
-V2RAY_VMESS_AEAD_FORCED=false  /data/v2ray/v2ray run
+V2RAY_VMESS_AEAD_FORCED=false ./v2ray run
